@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import Login from "./screens/Login";
-import Home from "./screens/Home";
-import NavBar from "./components/NavBar";
+import Login from "./Login";
+import Home from "./Home";
+import NavBar from "../components/NavBar";
+import Doctors from "./Doctors";
 
 const App: React.FC = () => {
   return (
@@ -14,8 +15,8 @@ const App: React.FC = () => {
         <Route exact path="/">
           <Home/>        
         </Route>
-        <Route path="/doctors/:name">
-          {/* <ListMedecins/> */}
+        <Route path={["/doctors/:name" , "/doctors" ]}>
+          <Doctors/>
         </Route>
         <Route path="/login">
           <Login />

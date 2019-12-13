@@ -5,7 +5,7 @@ import { Dot } from "./LoadingDots";
 const Button = styled.button<{ primary?: boolean }>`
   display: flex;
   margin: 10px 0;
-  padding: 0.5em 1em;
+  padding: 10px 1em;
   background-color: ${props => (props.primary ? colors.primary : "white")};
   color: ${props => (props.primary ? "white" : colors.primary)};
   font-size: 1em;

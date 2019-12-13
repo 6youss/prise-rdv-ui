@@ -6,7 +6,6 @@ const HomeSearchWrapper = styled(SectionWrapper)`
   align-items:center;
   justify-content:center;
   height: 60vh;
-
 `;
 
 export default HomeSearchWrapper;

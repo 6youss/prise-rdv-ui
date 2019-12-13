@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import colors from "./colors";
-console.log("sqdqsd");
 const StyledLink = styled(Link)<{ "data-active"?: boolean }>`
   color: ${colors.primary};
   cursor: pointer;

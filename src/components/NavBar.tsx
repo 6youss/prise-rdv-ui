@@ -8,6 +8,9 @@ import StyledLink from "../styled/StyledLink";
 
 const NavBar: React.FC = () => {
   const location = useLocation();
+
+  
+
   return (
     <NavBarWrapper>
       <Link to="/">

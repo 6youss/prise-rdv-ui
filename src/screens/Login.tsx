@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
     setLoading(true);
-    
+
     fetchLogin(username, password)
       .then(
         data => {
@@ -50,18 +50,8 @@ const Login: React.FC = () => {
   return (
     <FullScreenWrapper>
       <FormWrapper>
-        <Input
-          placeholder="Nom d'utilisateur"
-          value={username}
-          type="text"
-          onChange={handleUsername}
-        />
-        <Input
-          placeholder="Mot de passe"
-          value={password}
-          type="password"
-          onChange={handlePassword}
-        />
+        <Input placeholder="Nom d'utilisateur" value={username} type="text" onChange={handleUsername} />
+        <Input placeholder="Mot de passe" value={password} type="password" onChange={handlePassword} />
         <RowWrapper justify={"space-between"}>
           <Button disabled={loading} type="submit" onClick={handleSubmit}>
             {!loading ? "Login" : <LoadingDots />}

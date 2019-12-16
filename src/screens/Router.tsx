@@ -22,7 +22,7 @@ const App: React.FC = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <Route exact path={["/signup", "/signup/doctor", "/signup/patient"]}>
+        <Route exact path={["/signup", "/signup/:userType"]}>
           <Signup />
         </Route>
         <Route path="*">

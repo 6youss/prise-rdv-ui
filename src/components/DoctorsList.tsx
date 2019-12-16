@@ -17,7 +17,7 @@ const DoctorsList: React.FC<DoctorsListProps> = ({ searchValue }) => {
     setLoading(true);
     fetchDoctors(searchValue)
       .then(
-        ({doctors}) => {
+        ({ doctors }) => {
           console.log(doctors);
           setDoctors(doctors);
         },
@@ -36,9 +36,13 @@ const DoctorsList: React.FC<DoctorsListProps> = ({ searchValue }) => {
 
   return (
     <SectionWrapper background={colors.lightGray}>
-      {doctors.map((doctor: any , index: number ) => (
-        <DoctorsItem  key={"doctor-"+index} firstName={doctor.firstName} lastName={doctor.lastName} />
-      ))}
+      {loading ? (
+        <p>loading</p>
+      ) : (
+        doctors.map((doctor: any, index: number) => (
+          <DoctorsItem key={"doctor-" + index} firstName={doctor.firstName} lastName={doctor.lastName} />
+        ))
+      )}
     </SectionWrapper>
   );
 };

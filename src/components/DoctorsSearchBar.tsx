@@ -7,7 +7,6 @@ import CenterWrapper from "../styled/CenterWrapper";
 import H1 from "../styled/H1";
 import P from "../styled/P";
 import UnderHeader from "../styled/UnderHeader";
-import SectionWrapper from "../styled/SectionWrapper";
 import Wrapper from "../styled/Wrapper";
 
 const SearchBar: React.FC = () => {

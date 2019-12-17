@@ -1,10 +1,8 @@
 import React from "react";
-import NavBarWrapper from "../styled/NavBarWrapper";
 import logoImg from "../assets/logo.svg";
-import Logo from "../styled/Logo";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import StyledLink from "../styled/StyledLink";
+import { NavBarWrapper, Logo, StyledLink } from "../styled";
 
 const NavBar: React.FC = () => {
   const location = useLocation();

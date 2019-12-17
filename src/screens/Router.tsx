@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path={["/doctors/:name", "/doctors"]}>
+        <Route path={["/doctors/:doctorName", "/doctors"]}>
           <Doctors />
         </Route>
         <Route path="/login">

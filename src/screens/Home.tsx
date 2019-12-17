@@ -1,12 +1,14 @@
 import React from "react";
-import H1 from "../styled/H1";
-import CenterWrapper from "../styled/CenterWrapper";
-import P from "../styled/P";
-import DoctorsSearchBar from "../components/DoctorsSearchBar";
-import UnderHeader from "../styled/UnderHeader";
+import { DoctorsSearchBar } from "../components";
+import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
-  return <DoctorsSearchBar />;
+
+  const history = useHistory();
+  function handleSearchSubmit(searchValue : string){
+    history.push(`/doctors/${searchValue}`)
+  }
+  return <DoctorsSearchBar onSubmit={handleSearchSubmit} />
 };
 
 export default Home;

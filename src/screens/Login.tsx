@@ -1,14 +1,8 @@
 import React from "react";
-import Input from "../styled/StyledInput";
-import FullScreenWrapper from "../styled/FullScreenWrapper";
-import FormWrapper from "../styled/FormWrapper";
-import Button from "../styled/Button";
-import LoadingDots from "../styled/LoadingDots";
-import RowWrapper from "../styled/RowWrapper";
-import StyledLink from "../styled/StyledLink";
 import { toast } from "react-toastify";
 import { fetchLogin } from "../api/userAPI";
 import { useHistory } from "react-router";
+import { FullScreenWrapper, FormWrapper, StyledInput, RowWrapper, LoadingDots, Button, StyledLink } from "../styled";
 
 const Login: React.FC = () => {
   const [username, setUsername] = React.useState("");
@@ -20,25 +14,22 @@ const Login: React.FC = () => {
     event.preventDefault();
     setLoading(true);
 
-    fetchLogin(username, password)
-      .then(
-        data => {
-          toast(data.message, {
-            type: "success",
-            hideProgressBar: true
-          });
-          history.push("/");
-        },
-        reason => {
-          toast(reason.message, {
-            type: "error",
-            hideProgressBar: true
-          });
-        }
-      )
-      .finally(() => {
+    fetchLogin(username, password).then(
+      data => {
+        toast(data.message, {
+          type: "success",
+          hideProgressBar: true
+        });
+        history.push("/");
+      },
+      reason => {
+        toast(reason.message, {
+          type: "error",
+          hideProgressBar: true
+        });
         setLoading(false);
-      });
+      }
+    );
   }
   function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
@@ -50,8 +41,8 @@ const Login: React.FC = () => {
   return (
     <FullScreenWrapper>
       <FormWrapper>
-        <Input placeholder="Nom d'utilisateur" value={username} type="text" onChange={handleUsername} />
-        <Input placeholder="Mot de passe" value={password} type="password" onChange={handlePassword} />
+        <StyledInput placeholder="Nom d'utilisateur" value={username} type="text" onChange={handleUsername} />
+        <StyledInput placeholder="Mot de passe" value={password} type="password" onChange={handlePassword} />
         <RowWrapper justify={"space-between"}>
           <Button disabled={loading} type="submit" onClick={handleSubmit}>
             {!loading ? "Login" : <LoadingDots />}

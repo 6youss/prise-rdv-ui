@@ -2,14 +2,14 @@ import styled from "styled-components";
 import colors from "./colors";
 import { Dot } from "./LoadingDots";
 
-const Button = styled.button<{ primary?: boolean }>`
+export const Button = styled.button<{ primary?: boolean }>`
   display: flex;
   margin: 10px 0;
   padding: 10px 1em;
   background-color: ${props => (props.primary ? colors.primary : "white")};
   color: ${props => (props.primary ? "white" : colors.primary)};
   font-size: 1em;
-  border: 2px solid ${colors.primary};
+  border: 1.4px solid ${colors.primary};
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.4s;
@@ -29,4 +29,4 @@ const Button = styled.button<{ primary?: boolean }>`
   }
 `;
 
-export default Button;
+

@@ -1,23 +1,28 @@
 import React from "react";
-import RowWrapper from "../styled/RowWrapper";
-import StyledInput from "../styled/StyledInput";
-import Button from "../styled/Button";
-import { useHistory } from "react-router-dom";
-import CenterWrapper from "../styled/CenterWrapper";
-import H1 from "../styled/H1";
-import P from "../styled/P";
-import UnderHeader from "../styled/UnderHeader";
-import Wrapper from "../styled/Wrapper";
+import {
+  UnderHeader,
+  Wrapper,
+  H1,
+  P,
+  RowWrapper,
+  StyledInput,
+  Button,
+  CenterWrapper
+} from "../styled";
 
-const SearchBar: React.FC = () => {
+interface ISearchBarProps {
+  onSubmit: (searchValue: string) => void;
+}
+
+export const DoctorsSearchBar: React.FC<ISearchBarProps> = ({ onSubmit }) => {
   const [searchValue, setSearchValue] = React.useState("");
-  const history = useHistory();
+
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
   }
 
   function handleSearchSubmit() {
-    history.push(`/doctors${"/" + searchValue}`);
+    onSubmit(searchValue);
   }
 
   return (
@@ -35,5 +40,3 @@ const SearchBar: React.FC = () => {
     </UnderHeader>
   );
 };
-
-export default SearchBar;

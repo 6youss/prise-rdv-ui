@@ -1,20 +1,20 @@
 import React from "react";
-import DoctorItemWrapper from "../styled/DoctorItemWrapper";
-import P from "../styled/P";
+import male_avatar from "../assets/avatar_default_male.jpg";
+import { RowWrapper, P, Button, DoctorItemWrapper } from "../styled";
 
 type DoctorItemProps = {
-    firstName: string;
-    lastName: string;
-}
+  firstName: string;
+  lastName: string;
+};
 
-const DoctorsItem: React.FC<DoctorItemProps> = ({firstName,lastName}) => {
-  
-  return(
+export const DoctorsItem: React.FC<DoctorItemProps> = ({ firstName, lastName }) => {
+  return (
     <DoctorItemWrapper>
-        <P>{firstName}</P>
-        <P>{lastName}</P>
+      <RowWrapper justify="space-around" >
+        <img width="100px" src={male_avatar} alt="avatar" />
+        <P>{`${firstName} ${lastName}`}</P>
+        <Button>Prendre Rendez-Vous</Button>
+      </RowWrapper>      
     </DoctorItemWrapper>
   );
 };
-
-export default DoctorsItem;

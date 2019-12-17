@@ -1,26 +1,41 @@
 import React from "react";
-import Input from "../../styled/StyledInput";
-import FullScreenWrapper from "../../styled/FullScreenWrapper";
-import FormWrapper from "../../styled/FormWrapper";
-import Button from "../../styled/Button";
-import LoadingDots from "../../styled/LoadingDots";
-import RowWrapper from "../../styled/RowWrapper";
-import StyledLink from "../../styled/StyledLink";
+
 import { toast } from "react-toastify";
 import { fetchSignup } from "../../api/userAPI";
 import { useHistory, useParams } from "react-router";
 
-import H4 from "../../styled/H4";
 import { reducer, ActionTypes, docInitialState, patInitialState } from "./reducer";
+import { FormWrapper, RowWrapper, Button, FullScreenWrapper, H4, LoadingDots, StyledInput } from "../../styled";
 
 const Signup: React.FC = () => {
+  const history = useHistory();
   const params = useParams<{ userType: "doctor" | "patient" }>();
-  const [store, dispatch] = React.useReducer(reducer, params.userType === "doctor" ? docInitialState : patInitialState);
+  const isDoctor = params.userType === "doctor";
+  const [store, dispatch] = React.useReducer(reducer, isDoctor ? docInitialState : patInitialState);
+  const [loading, setLoading] = React.useState(false);
 
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
-    alert(JSON.stringify(store));
+    setLoading(true);
+
+    fetchSignup(store).then(
+      data => {
+        toast(data.message, {
+          type: "success",
+          hideProgressBar: true
+        });
+        history.push("/");
+      },
+      reason => {
+        toast(reason.message, {
+          type: "error",
+          hideProgressBar: true
+        });
+        setLoading(false);
+      }
+    );
   }
+
   function onInputChange(field: string, type: ActionTypes) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch({ type, payload: { field, value: e.target.value } });
@@ -30,18 +45,20 @@ const Signup: React.FC = () => {
   return (
     <FullScreenWrapper>
       <FormWrapper>
-        <Input placeholder="Nom d'utilisateur" onChange={onInputChange("username", "USER")} />
-        <Input placeholder="Mot de passe" type="password" onChange={onInputChange("password", "USER")} />
-        <Input
+        <StyledInput placeholder="Nom d'utilisateur" onChange={onInputChange("username", "USER")} />
+        <StyledInput placeholder="Mot de passe" type="password" onChange={onInputChange("password", "USER")} />
+        <StyledInput
           placeholder="Confirmation de mot de passe"
           type="password"
           onChange={onInputChange("password", "USER")}
         />
-        <Input placeholder="Nom" onChange={onInputChange("firstName", "PROFILE")} />
-        <Input placeholder="Prénom" onChange={onInputChange("lastName", "PROFILE")} />
+        <StyledInput placeholder="Nom" onChange={onInputChange("firstName", "PROFILE")} />
+        <StyledInput placeholder="Prénom" onChange={onInputChange("lastName", "PROFILE")} />
         <RowWrapper justify="space-between">
-          <Button onClick={handleSubmit}>S'inscrire</Button>
-          <H4>What's up doc !</H4>
+          <Button disabled={loading} type="submit" onClick={handleSubmit}>
+            {!loading ? "Inscrire" : <LoadingDots />}
+          </Button>
+          <H4>{isDoctor ? "What's up doc !" : "Patient Inscription"}</H4>
         </RowWrapper>
       </FormWrapper>
     </FullScreenWrapper>

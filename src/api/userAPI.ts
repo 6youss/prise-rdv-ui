@@ -12,7 +12,7 @@ export async function fetchLogin(username: string, password: string) {
   if (res.ok) {
     const data = await res.json();
     return data;
-  } else {  
+  } else {
     const error = await res.json();
     throw new Error(error.message);
   }
@@ -29,8 +29,8 @@ export async function fetchSignup(body: ISignupBody) {
   if (res.ok) {
     const data = await res.json();
     return data;
-  } else {  
+  } else {
     const error = await res.json();
-    throw new Error(error);
+    throw new Error(error.message);
   }
 }

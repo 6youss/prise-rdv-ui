@@ -1,8 +1,8 @@
-import CenterWrapper from "./CenterWrapper";
+import {CenterWrapper} from "./CenterWrapper";
 import styled from "styled-components";
-const FullScreenWrapper = styled(CenterWrapper)`
-  background-color: #efefef;
+import colors from "./colors";
+export const FullScreenWrapper = styled(CenterWrapper)`
+  background-color: ${colors.lightGray};
   height: 100vh;
 `;
 
-export default FullScreenWrapper;

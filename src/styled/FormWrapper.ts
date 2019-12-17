@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FormWrapper = styled.form`
+export const FormWrapper = styled.form`
   display: flex;
   align-items: start;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
@@ -10,5 +10,3 @@ const FormWrapper = styled.form`
   background-color: white;
   width: 40%;
 `;
-
-export default FormWrapper;

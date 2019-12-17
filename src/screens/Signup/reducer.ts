@@ -1,7 +1,7 @@
 import { ISignupBody } from "../../typings/user";
 export const docInitialState: ISignupBody = {
   username: "",
-  password: "",
+  password: "",  
   userType: "doctor",
   profile: {
     firstName: "",
@@ -11,7 +11,7 @@ export const docInitialState: ISignupBody = {
 };
 export const patInitialState: ISignupBody = {
   username: "",
-  password: "",
+  password: "",  
   userType: "patient",
   profile: {
     firstName: "",

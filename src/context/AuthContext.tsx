@@ -14,19 +14,19 @@ interface IPatient {
 }
 
 interface IUser {
-  patient: IPatient | undefined;
-  doctor: IDoctor | undefined;
+  patient: IPatient;
+  doctor: IDoctor;
 }
 
 interface IAuth {
-  user: IUser;
+  user: IUser | undefined ;
   logout: () => void;
   login: () => void;
 }
 
 const AuthProvider: React.FC = props => {
   const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
-  const [user, setUser] = React.useState({} as IUser);
+  const [user, setUser] = React.useState(undefined);
 
   React.useEffect(() => {
     login();
@@ -50,6 +50,7 @@ const AuthProvider: React.FC = props => {
           setFirstAttemptFinished(true);
         });
     } else {
+      console.log("no token");
       setFirstAttemptFinished(true);
     }
   }
@@ -57,7 +58,7 @@ const AuthProvider: React.FC = props => {
   function logout() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    setUser({} as IUser);
+    setUser(undefined);
   }
 
   return <AuthContext.Provider value={{ user, login, logout }} {...props} />;

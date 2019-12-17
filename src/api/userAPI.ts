@@ -11,8 +11,7 @@ export async function fetchUser() {
   if (res.ok) {
     const data = await res.json();
     return data;
-  } else {
-    console.log(res);
+  } else {    
     const error = await res.json();
     throw new Error(error.message);
   }

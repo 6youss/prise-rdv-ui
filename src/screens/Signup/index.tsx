@@ -1,9 +1,7 @@
 import React from "react";
-
 import { toast } from "react-toastify";
 import { fetchSignup } from "../../api/userAPI";
 import { useHistory, useParams } from "react-router";
-
 import { reducer, ActionTypes, docInitialState, patInitialState } from "./reducer";
 import { FormWrapper, RowWrapper, Button, FullScreenWrapper, H4, LoadingDots, StyledInput } from "../../styled";
 

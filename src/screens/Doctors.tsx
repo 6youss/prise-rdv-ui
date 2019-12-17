@@ -2,11 +2,10 @@ import React from "react";
 import { fetchDoctors } from "../api/doctorAPI";
 import { toast } from "react-toastify";
 import { useParams ,useHistory} from "react-router";
-
 import { DoctorsSearchBar, DoctorsList } from "../components";
 import isEqual from "lodash.isequal";
 
-const Doctors: React.FC = () => {  
+const Doctors: React.FC = () => {
   const params = useParams<{ doctorName: string }>();
   const history = useHistory();
   const { doctorName } = params;
@@ -36,7 +35,7 @@ const Doctors: React.FC = () => {
 
   React.useEffect(() => {
     getDoctors(doctorName);
-  }, []);
+  }, [doctorName, getDoctors]);
 
   return (
     <>

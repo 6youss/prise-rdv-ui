@@ -21,7 +21,8 @@ export const DoctorsSearchBar: React.FC<ISearchBarProps> = ({ onSubmit }) => {
     setSearchValue(e.target.value);
   }
 
-  function handleSearchSubmit() {
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     onSubmit(searchValue);
   }
 
@@ -31,10 +32,12 @@ export const DoctorsSearchBar: React.FC<ISearchBarProps> = ({ onSubmit }) => {
         <Wrapper max-width="700px">
           <H1> Prenez rendez vous en ligne chez un professionel de santé</H1>
           <P>C'est immediat, simple et gratuit.</P>
-          <RowWrapper>
-            <StyledInput value={searchValue} onChange={handleSearchChange} />
-            <Button onClick={handleSearchSubmit}>Rechercher</Button>
-          </RowWrapper>
+          <form onSubmit={handleSearchSubmit} >
+            <RowWrapper>
+              <StyledInput value={searchValue} onChange={handleSearchChange} />
+              <Button type="submit">Rechercher</Button>
+            </RowWrapper>
+          </form>
         </Wrapper>
       </CenterWrapper>
     </UnderHeader>

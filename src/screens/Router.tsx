@@ -7,28 +7,31 @@ import Signup from "./Signup";
 import Home from "./Home";
 import NavBar from "../components/NavBar";
 import Doctors from "./Doctors";
+import { AuthProvider } from "../context/AuthContext";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path={["/doctors/:doctorName", "/doctors"]}>
-          <Doctors />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route exact path={["/signup", "/signup/:userType"]}>
-          <Signup />
-        </Route>
-        <Route path="*">
-          <p> 404 </p>
-        </Route>
-      </Switch>
+      <AuthProvider>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path={["/doctors/:doctorName", "/doctors"]}>
+            <Doctors />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route exact path={["/signup", "/signup/:userType"]}>
+            <Signup />
+          </Route>
+          <Route path="*">
+            <p> 404 </p>
+          </Route>
+        </Switch>
+      </AuthProvider>
       <ToastContainer autoClose={6000} />
     </Router>
   );

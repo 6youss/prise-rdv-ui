@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const NavBarWrapper = styled.div<{ fullScreen?: boolean }>`
+export const NavBarWrapper = styled.div<{ fullScreen?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,5 +10,3 @@ const NavBarWrapper = styled.div<{ fullScreen?: boolean }>`
   top: 0;
   left: 0;
 `;
-
-export default NavBarWrapper;

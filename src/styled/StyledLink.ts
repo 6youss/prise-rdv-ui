@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import colors from "./colors";
-const StyledLink = styled(Link)<{ "data-active"?: boolean }>`
+export const StyledLink = styled(Link)<{ "data-active"?: boolean }>`
   color: ${colors.primary};
   cursor: pointer;
   font-weight: bold;
@@ -28,5 +28,3 @@ const StyledLink = styled(Link)<{ "data-active"?: boolean }>`
       `}
   }
 `;
-
-export default StyledLink;

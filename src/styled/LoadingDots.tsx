@@ -21,7 +21,7 @@ export const Dot = styled.div<{ delay: string }>`
   animation: ${BounceAnimation} 0.5s linear infinite;
   animation-delay: ${props => props.delay};
 `;
-class LoadingDots extends Component {
+export class LoadingDots extends Component {
   render() {
     return (
       <DotWrapper>
@@ -32,4 +32,4 @@ class LoadingDots extends Component {
     );
   }
 }
-export default LoadingDots;
+

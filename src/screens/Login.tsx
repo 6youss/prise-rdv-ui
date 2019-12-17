@@ -3,12 +3,14 @@ import { toast } from "react-toastify";
 import { fetchLogin } from "../api/userAPI";
 import { useHistory } from "react-router";
 import { FullScreenWrapper, FormWrapper, StyledInput, RowWrapper, LoadingDots, Button, StyledLink } from "../styled";
+import { useAuth } from "../context/AuthContext";
 
 const Login: React.FC = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const history = useHistory();
+  const {login} = useAuth();
 
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
@@ -20,6 +22,7 @@ const Login: React.FC = () => {
           type: "success",
           hideProgressBar: true
         });
+        login();
         history.push("/");
       },
       reason => {

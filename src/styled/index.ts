@@ -15,3 +15,4 @@ export * from "./StyledInput";
 export * from "./StyledLink";
 export * from "./UnderHeader";
 export * from "./Wrapper";
+export * from "./TextButton";

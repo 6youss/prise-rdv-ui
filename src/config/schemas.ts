@@ -1,27 +1,30 @@
-import Joi from "@hapi/joi";
+import * as yup from 'yup';
 
-export const signUpSchema = Joi.object({
-  username: Joi.string()
-    .alphanum()
+export const signUpSchema = yup.object({
+  username: yup
+    .string()
     .min(3)
     .max(30)
     .required(),
 
-  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+  password: yup.string().required(),
 
-  confirmPassword: Joi.any().equal( Joi.ref("password") ).required() ,
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null])
+    .required(),
 
-  userType: Joi.string().required(),
+  userType: yup.string().required(),
 
-  profile: Joi.object({
-    firstName: Joi.string()
-      .alphanum()
+  profile: yup.object({
+    firstName: yup
+      .string()
       .min(3)
       .max(30)
       .required(),
 
-    lastName: Joi.string()
-      .alphanum()
+    lastName: yup
+      .string()
       .min(3)
       .max(30)
       .required()

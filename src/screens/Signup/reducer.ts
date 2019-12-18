@@ -1,7 +1,9 @@
-import { ISignupBody } from "../../typings/user";
+import { ISignupBody } from "../../types";
+
 export const docInitialState: ISignupBody = {
   username: "",
-  password: "",  
+  password: "",
+  confirmPassword: "",
   userType: "doctor",
   profile: {
     firstName: "",
@@ -9,9 +11,11 @@ export const docInitialState: ISignupBody = {
     holidays: undefined
   }
 };
+
 export const patInitialState: ISignupBody = {
   username: "",
-  password: "",  
+  password: "",
+  confirmPassword: "",
   userType: "patient",
   profile: {
     firstName: "",
@@ -32,11 +36,12 @@ interface Action {
 export function reducer(state: ISignupBody, action: Action) {
   switch (action.type) {
     case "PROFILE":
+      const field = action.payload.field.replace("profile.", "");
       return {
         ...state,
         profile: {
           ...state.profile,
-          [action.payload.field]: action.payload.value
+          [field]: action.payload.value
         }
       };
     case "USER":

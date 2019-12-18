@@ -1,11 +1,11 @@
 import { BASE_URL } from "../config/strings";
-import { ISignupBody } from "../typings/user";
+import { ISignupBody } from "../types";
 
 export async function fetchUser() {
   const accessToken = localStorage.getItem("accessToken");
-  const res = await fetch(BASE_URL + "/user",{
-    headers:{
-      Authorization: `Bearer ${accessToken}`,      
+  const res = await fetch(BASE_URL + "/user", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
   if (res.ok) {
@@ -27,8 +27,8 @@ export async function fetchLogin(username: string, password: string) {
   });
   if (res.ok) {
     const data = await res.json();
-    localStorage.setItem("accessToken",data.accessToken);
-    localStorage.setItem("refreshToken",data.refreshToken);
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
     return data;
   } else {
     const error = await res.json();

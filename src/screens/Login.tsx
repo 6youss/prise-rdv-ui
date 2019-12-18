@@ -19,8 +19,7 @@ const Login: React.FC = () => {
     fetchLogin(username, password).then(
       data => {
         toast(data.message, {
-          type: "success",
-          hideProgressBar: true
+          type: "success",          
         });
         login();
         history.push("/");
@@ -28,7 +27,6 @@ const Login: React.FC = () => {
       reason => {
         toast(reason.message, {
           type: "error",
-          hideProgressBar: true
         });
         setLoading(false);
       }

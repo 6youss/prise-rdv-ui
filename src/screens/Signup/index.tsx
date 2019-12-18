@@ -17,35 +17,7 @@ import {
   LoadingDots,
   StyledInput
 } from "../../styled";
-import Joi from "@hapi/joi";
-
-const schema = Joi.object({
-  username: Joi.string()
-    .alphanum()
-    .min(3)
-    .max(30)
-    .required(),
-
-  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
-
-  confirmPassword: Joi.ref("password"),
-
-  userType: Joi.string().required(),
-
-  profile: Joi.object({
-    firstName: Joi.string()
-      .alphanum()
-      .min(3)
-      .max(30)
-      .required(),
-
-    lastName: Joi.string()
-      .alphanum()
-      .min(3)
-      .max(30)
-      .required()
-  })
-});
+import { signUpSchema } from "../../config/schemas";
 
 const Signup: React.FC = () => {
   const history = useHistory();
@@ -55,8 +27,10 @@ const Signup: React.FC = () => {
     reducer,
     isDoctor ? docInitialState : patInitialState
   );
+  const [errors, setErrors] = React.useState(undefined);
+
   const [loading, setLoading] = React.useState(false);
-  const { error } = schema.validate(store);
+  const { error } = signUpSchema.validate(store);
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
     if (!error) {
@@ -64,20 +38,20 @@ const Signup: React.FC = () => {
       fetchSignup(store).then(
         data => {
           toast(data.message, {
-            type: "success",
-            hideProgressBar: true
+            type: "success"
           });
           history.push("/");
         },
         reason => {
           toast(reason.message, {
-            type: "error",
-            hideProgressBar: true
+            type: "error"
           });
           setLoading(false);
         }
       );
     } else {
+      console.log(error.details);      
+
       toast(JSON.stringify(error.message), {
         type: "error",
         hideProgressBar: true

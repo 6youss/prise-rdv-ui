@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer , toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </AuthProvider>
-      <ToastContainer autoClose={6000} />
+      <ToastContainer hideProgressBar position={ toast.POSITION.BOTTOM_CENTER } autoClose={4000} />
     </Router>
   );
 };

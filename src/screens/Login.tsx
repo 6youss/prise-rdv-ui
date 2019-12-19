@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const history = useHistory();
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
@@ -19,16 +19,14 @@ const Login: React.FC = () => {
     fetchLogin(username, password).then(
       data => {
         toast(data.message, {
-          type: "success",
-          hideProgressBar: true
+          type: "success"
         });
         login();
         history.push("/");
       },
       reason => {
         toast(reason.message, {
-          type: "error",
-          hideProgressBar: true
+          type: "error"
         });
         setLoading(false);
       }

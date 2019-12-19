@@ -9,9 +9,6 @@ const NavBar: React.FC = () => {
   const location = useLocation();
   const auth = useAuth();
 
-  React.useEffect(() => {
-    console.log(auth);
-  });
   return (
     <NavBarWrapper>
       <Link to="/">

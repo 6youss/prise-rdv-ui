@@ -26,7 +26,7 @@ const NavBar: React.FC = () => {
         </P>
       ) : (
         <P>
-          {`Welcom patient ${auth.user.patient.firstName} ${auth.user.patient.lastName}`}
+          {`Welcom ${auth.user.patient.firstName} ${auth.user.patient.lastName}`}
           <TextButton onClick={auth.logout}>Logout</TextButton>
         </P>
       )}

@@ -4,16 +4,8 @@ import { fetchSignup } from "../../api/userAPI";
 import { useHistory, useParams } from "react-router";
 import { reducer, ActionTypes, docInitialState, patInitialState } from "./reducer";
 import { FormWrapper, RowWrapper, Button, FullScreenWrapper, H4, LoadingDots, StyledInput } from "../../styled";
-
 import { signUpSchema } from "../../config/schemas";
-import { FieldErrors } from "../../types";
-
-interface YupValidationError {
-  inner: { path: string; message: string; type: string }[];
-  path: string;
-  message: string;
-  type: string;
-}
+import { FieldErrors, YupValidationError } from "../../types";
 
 const Signup: React.FC = () => {
   const history = useHistory();

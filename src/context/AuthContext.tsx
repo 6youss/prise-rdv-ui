@@ -19,7 +19,7 @@ interface IUser {
 }
 
 interface IAuth {
-  user: IUser | undefined ;
+  user: IUser | undefined;
   logout: () => void;
   login: () => void;
 }
@@ -66,7 +66,7 @@ const AuthProvider: React.FC = props => {
 
 function useAuth() {
   const context = React.useContext(AuthContext);
-  if (context === undefined) {
+  if (Object.keys(context).length === 0) {
     throw new Error(`useAuth must be used within a AuthProvider`);
   }
   return context;

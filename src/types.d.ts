@@ -16,6 +16,13 @@ export interface DoctorProfile {
   holidays: [Date];
 }
 
-type FieldError = string | undefined;
+export interface YupValidationError {
+  inner: { path: string; message: string; type: string }[];
+  path: string;
+  message: string;
+  type: string;
+}
 
-type FieldErrors = Record<string, FieldError>;
+type FieldError = string;
+
+export type FieldErrors = Record<string, FieldError>;

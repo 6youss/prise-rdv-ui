@@ -16,11 +16,14 @@ export interface DoctorProfile {
   holidays: [Date];
 }
 
-export interface YupValidationError {
-  inner: { path: string; message: string; type: string }[];
-  path: string;
+export interface JoiErrorDetail {
   message: string;
+  path: string[];
   type: string;
+}
+export interface JoiError {
+  details: JoiErrorDetail[];
+  inner: { path: string; message: string; type: string }[];
 }
 
 type FieldError = string;

@@ -1,6 +1,6 @@
 import { ISignupBody } from "../../types";
 
-export const docInitialState: ISignupBody = {
+export const doctorInitialState: ISignupBody = {
   username: "",
   password: "",
   confirmPassword: "",
@@ -12,7 +12,7 @@ export const docInitialState: ISignupBody = {
   }
 };
 
-export const patInitialState: ISignupBody = {
+export const patientInitialState: ISignupBody = {
   username: "",
   password: "",
   confirmPassword: "",

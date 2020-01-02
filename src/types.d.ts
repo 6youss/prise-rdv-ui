@@ -16,16 +16,4 @@ export interface DoctorProfile {
   holidays: [Date];
 }
 
-export interface JoiErrorDetail {
-  message: string;
-  path: string[];
-  type: string;
-}
-export interface JoiError {
-  details: JoiErrorDetail[];
-  inner: { path: string; message: string; type: string }[];
-}
-
-type FieldError = string;
-
-export type FieldErrors = Record<string, FieldError>;
+export type FieldErrors = Record<string, string | Record<FieldErrors>>;

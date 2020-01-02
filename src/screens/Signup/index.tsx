@@ -54,11 +54,17 @@ const Signup: React.FC = () => {
     }
 
     const profileValidationError = profileSchema.validate(store.profile, { abortEarly: false }).error;
+    const parcedProfileValidationError = parseErrorSchema(profileValidationError);
+    for (const key in parcedProfileValidationError) {
+      parcedProfileValidationError["profile." + key] = parcedProfileValidationError[key];
+      delete parcedProfileValidationError[key];
+    }
 
-    const allErrors = { ...parseErrorSchema(profileValidationError), ...parseErrorSchema(userValidationError) };
-    console.log(allErrors);
+    const allErrors = { ...parseErrorSchema(userValidationError), ...parcedProfileValidationError };
+    // console.log(allErrors);
+    setErrors(allErrors);
+
     if (profileValidationError || userValidationError) {
-      setErrors({ ...errors, ...parseErrorSchema(profileValidationError), ...parseErrorSchema(userValidationError) });
       return false;
     }
 

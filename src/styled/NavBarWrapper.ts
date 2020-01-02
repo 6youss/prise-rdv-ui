@@ -5,8 +5,9 @@ export const NavBarWrapper = styled.div<{ fullScreen?: boolean }>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 50px;
+  padding: 5px 50px;
   position: fixed;
+  background-color: white;
   top: 0;
   left: 0;
 `;

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { fetchSignup } from "../../api/userAPI";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import { reducer, ActionTypes, doctorInitialState, patientInitialState } from "./reducer";
 import { FormWrapper, RowWrapper, Button, FullScreenWrapper, H4, LoadingDots, StyledInput } from "../../styled";
-import { signUpSchema, parseErrorSchema } from "../../config/schemas";
+import { signUpSchema, parseErrorSchema, DoctorProfileSchema, PatientProfileSchema } from "../../config/schemas";
 import { FieldErrors } from "../../types";
 
 const Signup: React.FC = () => {
   const params = useParams<{ userType: "doctor" | "patient" }>();
+  const history = useHistory();
   const isDoctor = params.userType === "doctor";
 
   const [store, dispatch] = React.useReducer(reducer, isDoctor ? doctorInitialState : patientInitialState);
@@ -19,25 +20,51 @@ const Signup: React.FC = () => {
 
   async function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
-    const validation = signUpSchema.validate(store, { abortEarly: false });
+    if (validate()) {
+      setLoading(true);
+      fetchSignup(store).then(
+        data => {
+          toast(data.message, {
+            type: "success"
+          });
+          history.push("/login");
+        },
+        reason => {
+          toast(reason.message, {
+            type: "error"
+          });
+          setLoading(false);
+        }
+      );
+    }
+  }
 
-    if (validation.error) return setErrors(parseErrorSchema(validation.error));
+  function validate() {
+    const userValidationError = signUpSchema.validate(store, { abortEarly: false }).error;
+
+    const { userType } = store;
+    let profileSchema;
+    switch (userType) {
+      case "doctor":
+        profileSchema = DoctorProfileSchema;
+        break;
+      case "patient":
+        profileSchema = PatientProfileSchema;
+        break;
+    }
+
+    const profileValidationError = profileSchema.validate(store.profile, { abortEarly: false }).error;
+
+    const allErrors = { ...parseErrorSchema(profileValidationError), ...parseErrorSchema(userValidationError) };
+    console.log(allErrors);
+    if (profileValidationError || userValidationError) {
+      setErrors({ ...errors, ...parseErrorSchema(profileValidationError), ...parseErrorSchema(userValidationError) });
+      return false;
+    }
 
     setErrors({});
-    setLoading(true);
-    fetchSignup(store).then(
-      data => {
-        toast(data.message, {
-          type: "success"
-        });
-      },
-      reason => {
-        toast(reason.message, {
-          type: "error"
-        });
-        setLoading(false);
-      }
-    );
+
+    return true;
   }
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,17 +75,12 @@ const Signup: React.FC = () => {
     dispatch({ type, payload: { field, value } });
   };
 
-  async function validateForm() {
-    const { error } = signUpSchema.validate(store, { abortEarly: false });
-    if (error) return setErrors(parseErrorSchema(error));
-    setErrors({});
-  }
-
   //if errors exist, validate on every store change
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
-      validateForm();
+      validate();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store]);
 
   return (

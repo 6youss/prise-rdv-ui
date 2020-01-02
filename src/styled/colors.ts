@@ -4,7 +4,7 @@ const colors = {
   gray: "#999",
   lightGray: "#EEF2F0",
   mediumGray: "#DDD",
-  error: "#f00"
+  error: "#ed5555"
 };
 
 export default colors;

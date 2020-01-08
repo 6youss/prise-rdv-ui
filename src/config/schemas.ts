@@ -2,6 +2,15 @@ import Joi from "@hapi/joi";
 import { ValidationError, ValidationErrorItem } from "@hapi/joi";
 import { FieldErrors } from "../types";
 
+export function parseErrorSchema(errors: ValidationError): FieldErrors {
+  if (!errors) return {};
+  const errs: FieldErrors = {};
+  errors.details.forEach((error: ValidationErrorItem) => {
+    errs[error.path.join(".")] = error.message;
+  });
+  return errs;
+}
+
 const username = Joi.string()
   .alphanum()
   .min(3)
@@ -11,15 +20,6 @@ const username = Joi.string()
     "any.invalid": "username and password must be different"
   })
   .required();
-
-export function parseErrorSchema(errors: ValidationError): FieldErrors {
-  if (!errors) return {};
-  const errs: FieldErrors = {};
-  errors.details.forEach((error: ValidationErrorItem) => {
-    errs[error.path.join(".")] = error.message;
-  });
-  return errs;
-}
 
 export const DoctorProfileSchema = Joi.object({
   firstName: Joi.string()
@@ -66,10 +66,27 @@ export const signUpSchema = Joi.object({
     .valid(...["doctor", "patient"])
     .required(),
 
-  profile: Joi.object().required()
+  profile: Joi.when("userType", {
+    is: "doctor",
+    then: DoctorProfileSchema,
+    otherwise: PatientProfileSchema
+  }).required()
 }).required();
 
 export const loginSchema = Joi.object({
   username,
+
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+}).required();
+
+const objectIdRegex = Joi.string()
+  .regex(/^[0-9a-fA-F]{24}$/)
+  .required();
+
+export const sessionSchema = Joi.object({
+  patientId: objectIdRegex,
+  doctorId: objectIdRegex,
+  date: Joi.date()
+    .iso()
+    .required()
 }).required();

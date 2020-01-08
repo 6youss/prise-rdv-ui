@@ -4,7 +4,7 @@ import { fetchSignup } from "../../api/userAPI";
 import { useParams, useHistory } from "react-router";
 import { reducer, ActionTypes, doctorInitialState, patientInitialState } from "./reducer";
 import { FormWrapper, RowWrapper, Button, FullScreenWrapper, H4, LoadingDots, StyledInput } from "../../styled";
-import { signUpSchema, parseErrorSchema, DoctorProfileSchema, PatientProfileSchema } from "../../config/schemas";
+import { signUpSchema, parseErrorSchema } from "../../config/schemas";
 import { FieldErrors } from "../../types";
 
 const Signup: React.FC = () => {
@@ -40,37 +40,10 @@ const Signup: React.FC = () => {
   }
 
   function validate() {
-    const userValidationError = signUpSchema.validate(store, { abortEarly: false }).error;
-
-    const { userType } = store;
-    let profileSchema;
-    switch (userType) {
-      case "doctor":
-        profileSchema = DoctorProfileSchema;
-        break;
-      case "patient":
-        profileSchema = PatientProfileSchema;
-        break;
-    }
-
-    const profileValidationError = profileSchema.validate(store.profile, { abortEarly: false }).error;
-    const parcedProfileValidationError = parseErrorSchema(profileValidationError);
-    for (const key in parcedProfileValidationError) {
-      parcedProfileValidationError["profile." + key] = parcedProfileValidationError[key];
-      delete parcedProfileValidationError[key];
-    }
-
-    const allErrors = { ...parseErrorSchema(userValidationError), ...parcedProfileValidationError };
-    // console.log(allErrors);
-    setErrors(allErrors);
-
-    if (profileValidationError || userValidationError) {
-      return false;
-    }
-
-    setErrors({});
-
-    return true;
+    const joiErrors = signUpSchema.validate(store, { abortEarly: false }).error;
+    const errors = parseErrorSchema(joiErrors);
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   }
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,14 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { AuthProvider } from "./context/AuthContext";
+import store from "./redux";
+import { Provider } from "react-redux";
+// import App from "./App";
+// import { AuthProvider } from "./context/AuthContext";
+import Calendar from "./components/Calendar";
 
 ReactDOM.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>,
+  <Provider store={store}>
+    <Calendar />
+  </Provider>,
+  // <AuthProvider>
+  //   <App />
+  // </AuthProvider>,
   document.getElementById("root")
 );
 
